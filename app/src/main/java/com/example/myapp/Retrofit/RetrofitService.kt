@@ -8,13 +8,13 @@ import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("artist")
+    @GET("/artists")
     fun getAllArtists(
         @Query("page") page: Int = 0,
         @Query("size") size: Int = 10
     ): Call<ArtistResponse>
 
-    @POST("artist")
+    @POST("/artist")
     fun updateArtist(
         @Body artistData: ArtistData
     ): Call<Unit>

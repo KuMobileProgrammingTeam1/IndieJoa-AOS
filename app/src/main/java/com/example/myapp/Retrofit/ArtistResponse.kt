@@ -6,7 +6,7 @@ data class ArtistResponse(
     val size: Int,
     val content: List<ArtistData>,
     val number: Int,
-    val sort: List<SortInfo>,
+    val sort: SortInfo,
     val first: Boolean,
     val last: Boolean,
     val numberOfElements: Int,
