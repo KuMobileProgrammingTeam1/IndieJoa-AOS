@@ -20,6 +20,8 @@ import com.example.myapp.data.MyViewModel
 
 @Composable
 fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
+    val base_url = "https://indiejoa-api.fly.dev"
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
