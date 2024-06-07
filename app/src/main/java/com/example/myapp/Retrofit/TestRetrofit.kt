@@ -16,17 +16,8 @@ fun TestRetrofit() {
                 println("${artistResponse?.totalElements}")
 
                 artistResponse?.content?.forEach { artist ->
-                    println("artistName : ${artist.name}")
-                    println("artistID : ${artist.artistId}")
-                    if (artist.name == "이런") {
-                        println("artistName : ${artist.name}")
-                        println("artistID : ${artist.artistId}")
-                        println("youtubeVideoLink : ${artist.youtubeVideoLink}")
-                        TestRetrofitInput(artist)
-                        println("artistName : ${artist.name}")
-                        println("artistID : ${artist.artistId}")
-                        println("youtubeVideoLink : ${artist.youtubeVideoLink}")
-                    }
+                    println(artist.artistId)
+                    println(artist.name)
                 }
             } else {
                 println("failed on response")
