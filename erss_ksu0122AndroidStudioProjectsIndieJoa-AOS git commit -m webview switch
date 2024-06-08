@@ -1,0 +1,51 @@
+[33mcommit a12e3117060e8185bdbd0bea0dd7162dc2604426[m[33m ([m[1;36mHEAD -> [m[1;32mmap[m[33m)[m
+Author: kunoesmik <117143870+kunoesmik@users.noreply.github.com>
+Date:   Sun Jun 9 04:29:30 2024 +0900
+
+    Revert "Revert "webview button""
+    
+    This reverts commit 7b664fc0e6908d4a3343c28ed6b5836c6e2de077.
+
+[33mcommit 7b664fc0e6908d4a3343c28ed6b5836c6e2de077[m
+Author: kunoesmik <117143870+kunoesmik@users.noreply.github.com>
+Date:   Sun Jun 9 04:27:39 2024 +0900
+
+    Revert "webview button"
+    
+    This reverts commit 0bcc5ae0a1e9a577847cc36790fd34f7975b17dc.
+
+[33mcommit 496940e379a27f355066b2d81d20c3d67661c2c2[m
+Author: kunoesmik <117143870+kunoesmik@users.noreply.github.com>
+Date:   Sun Jun 9 04:19:15 2024 +0900
+
+    webview button
+
+[33mcommit 0bcc5ae0a1e9a577847cc36790fd34f7975b17dc[m
+Author: kunoesmik <117143870+kunoesmik@users.noreply.github.com>
+Date:   Sun Jun 9 04:05:22 2024 +0900
+
+    webview button
+
+[33mcommit abdcae5c143c1296a45d6666518690cfcc501b07[m[33m ([m[1;31morigin/map[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mbandDetail[m[33m)[m
+Author: Ji-InPark <81283634+Ji-InPark@users.noreply.github.com>
+Date:   Wed Jun 5 21:02:52 2024 +0900
+
+    Edit to rename variables to reflect response type
+
+[33mcommit a1c3c1f047896d343563899b59f365ff5e1ecbf2[m
+Author: kmkm0318 <kmkm0318@naver.com>
+Date:   Wed Jun 5 19:14:06 2024 +0900
+
+    Retrofit 제작 및 테스트
+
+[33mcommit c0f259d3fe8753457c1018aacd045b290b28f245[m
+Author: kmkm0318 <kmkm0318@naver.com>
+Date:   Mon Jun 3 19:35:01 2024 +0900
+
+    GroupDetailScreen Update and Tested On MyViewModel
+
+[33mcommit 9403b11c6ed6e305d1e1be395f9a15de9c3d631f[m[33m ([m[1;32mmain[m[33m)[m
+Author: Ji-InPark <81283634+Ji-InPark@users.noreply.github.com>
+Date:   Sun Jun 2 03:02:44 2024 +0900
+
+    Init
