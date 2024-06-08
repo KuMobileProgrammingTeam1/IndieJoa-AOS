@@ -1,29 +1,22 @@
 package com.example.myapp.composable.screen
 
-import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import com.example.myapp.composable.component.ShowThumbnail
 import com.example.myapp.data.MyViewModel
-import com.example.myapp.stage.MapActivity
 
 @Composable
 fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
@@ -45,26 +38,6 @@ fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
             )
         }
         //지도는 여기에 추가해주세요
-        item{
-            val context = LocalContext.current
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Button(
-                    onClick = {
-                        val intent = Intent(context, MapActivity::class.java)
-                        context.startActivity(intent)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("공연장 위치")
-                }
-            }
-        }
         item {
             Text(
                 text = myViewModel.dataList[itemIndex!!].bandName,
