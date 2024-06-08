@@ -15,5 +15,6 @@ data class AllData(
     val showImg:Int = R.drawable.defaultimg,
     val showIntro:String = "no show intro",
     val showDate:Date = Date(1000,10,10),
-    val showLocation:String = "no location"
+    val showLocation:String = "no location",
+    val showPrice:Int = 0
     )

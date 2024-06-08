@@ -1,26 +1,17 @@
 package com.example.myapp.data
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import java.util.Date
 
-class MyViewModel(private val application: Application) : AndroidViewModel(application) {
+class MyViewModel(private val application:Application) : AndroidViewModel(application) {
     var dataList = mutableListOf<AllData>()
         private set
 
     init {
-        //밴드 디테일 화면 실험용
-        val bandName = "제시 바베라"
-        val musicList =
-            listOf("nh29uTWeK3A", "p5MSR2-SLd4", "fACfypWLqXg", "JY3BEc2j1NI", "qExLcd2ZYjA")
-        val shortList =
-            listOf("5DDBkBcN43E", "4-5A2S09FGg", "kvaCtrdGn-w", "DvIX9IAVF1w", "g6wZAa7FAI8")
-
-        val tmp = AllData(bandName = bandName, musicList = musicList, shortList = shortList)
-        dataList.add(tmp)
-
-        //임시 데이터
-        dataList.add(AllData("INDI STREET"))
-        for (i: Int in 1..30) dataList.add(AllData())
+        dataList.add(AllData(bandName = "2022년 55000원", showDate = Date(2022, 10, 10), showPrice = 55000))
+        dataList.add(AllData(bandName = "2023년 45000원", showDate = Date(2023, 10, 10), showPrice = 45000))
+        dataList.add(AllData(bandName = "2024년 35000원", showDate = Date(2024, 10, 10), showPrice = 35000))
+        dataList.add(AllData(bandName = "2025년 25000원", showDate = Date(2025, 10, 10), showPrice = 25000))
     }
 }
