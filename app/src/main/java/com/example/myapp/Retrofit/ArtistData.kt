@@ -1,7 +1,8 @@
 package com.example.myapp.Retrofit
 
 data class ArtistData(
-    val artistId: Int,
+    val id: Int,
+    val indieStreetId: Int,
     val name: String,
     val nameEn: String,
     val nameJp: String,
