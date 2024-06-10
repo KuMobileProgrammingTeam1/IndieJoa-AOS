@@ -23,7 +23,6 @@ import com.example.myapp.data.MyViewModel
 
 @Composable
 fun HomeItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavController) {
-
     Row {
         if(!myViewModel.dataList[itemIndex].imageUrl.isBlank()){
             AsyncImage(

@@ -23,8 +23,6 @@ class MyViewModel(private val application: Application) : AndroidViewModel(appli
             InitArtistList {
                 dataList = it.toMutableList()
                 isLoaded.value = true
-                Log.i("viewmodel", "finished")
-                Log.i("viewmodel", "${dataList.count()}")
             }
         }
     }

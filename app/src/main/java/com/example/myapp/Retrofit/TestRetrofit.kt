@@ -12,19 +12,14 @@ fun TestRetrofit() {
         override fun onResponse(call: Call<ArtistResponse>, response: Response<ArtistResponse>) {
             if (response.isSuccessful) {
                 val artistResponse = response.body()
-                println("testRetrofit OnResponse")
-                println("${artistResponse?.totalElements}")
 
                 artistResponse?.content?.forEach { artist ->
-                    println(artist.name)
-                    println(artist.id)
-                    println(artist.imageUrl)
+//                    println(artist.name)
+//                    println(artist.id)
 
                     if(artist.name == "제시 바레라"){
-//                        print(ReadArtistYoutubeVideo(artist, false))
+                        print(ReadArtistYoutubeVideo(artist, false))
 //                        UpdateArtistYoutubeVideo(artist)
-//                        println("제시 바레라 정보")
-//                        println(artist.youtubeVideoLink)
                     }
 
 

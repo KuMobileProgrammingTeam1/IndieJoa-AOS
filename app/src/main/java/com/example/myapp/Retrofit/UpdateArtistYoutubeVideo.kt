@@ -35,8 +35,6 @@ fun UpdateArtistYoutubeVideo(artist: ArtistData) {
         listString += it
     }
 
-    println(listString)
-
     val tmp = artist.copy(youtubeVideoLink = listString)
 
     val call = retrofitService.updateArtist(tmp)
