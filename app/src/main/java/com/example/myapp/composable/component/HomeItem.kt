@@ -19,31 +19,31 @@ import com.example.myapp.data.MyViewModel
 
 @Composable
 fun HomeItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavController) {
-    Row {
-        Image(
-            painter = painterResource(id = myViewModel.dataList[itemIndex].bandImg),
-            contentDescription = myViewModel.dataList[itemIndex].bandName,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(175.dp)
-                .clickable {
-                    navController.navigate(route = "GroupDetailScreen/$itemIndex")
-                }
-        )
-        Column {
-            Text(
-                text = myViewModel.dataList[itemIndex].bandName,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 20.dp)
-            )
-            Text(
-                text = myViewModel.dataList[itemIndex].showName,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 20.dp)
-            )
-
-        }
-    }
+//    Row {
+//        Image(
+//            painter = painterResource(id = myViewModel.dataList[itemIndex].bandImg),
+//            contentDescription = myViewModel.dataList[itemIndex].bandName,
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier
+//                .size(175.dp)
+//                .clickable {
+//                    navController.navigate(route = "GroupDetailScreen/$itemIndex")
+//                }
+//        )
+//        Column {
+//            Text(
+//                text = myViewModel.dataList[itemIndex].bandName,
+//                fontSize = 20.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                modifier = Modifier.padding(start = 20.dp)
+//            )
+//            Text(
+//                text = myViewModel.dataList[itemIndex].showName,
+//                fontSize = 20.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                modifier = Modifier.padding(start = 20.dp)
+//            )
+//
+//        }
+//    }
 }

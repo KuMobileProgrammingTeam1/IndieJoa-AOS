@@ -1,6 +1,7 @@
 package com.example.myapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,6 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.myapp.Retrofit.ArtistData
+import com.example.myapp.Retrofit.InitArtistList
 import com.example.myapp.composable.screen.GroupDetailScreen
 import com.example.myapp.composable.screen.HomeScreen
 import com.example.myapp.data.MyViewModel
