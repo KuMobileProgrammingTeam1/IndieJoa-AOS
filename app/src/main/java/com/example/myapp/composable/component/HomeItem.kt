@@ -58,7 +58,7 @@ fun HomeItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavControll
                 modifier = Modifier.padding(start = 20.dp)
             )
             Text(
-                text = myViewModel.dataList[itemIndex].name,
+                text = myViewModel.dataList[itemIndex].nameEn,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 20.dp)
