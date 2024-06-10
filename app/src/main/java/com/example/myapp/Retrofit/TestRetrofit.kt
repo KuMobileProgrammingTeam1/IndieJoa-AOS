@@ -18,6 +18,7 @@ fun TestRetrofit() {
                 artistResponse?.content?.forEach { artist ->
                     println(artist.name)
                     println(artist.id)
+                    println(artist.imageUrl)
 
                     if(artist.name == "제시 바레라"){
 //                        print(ReadArtistYoutubeVideo(artist, false))

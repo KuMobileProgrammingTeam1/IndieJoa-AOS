@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -18,10 +19,14 @@ import com.example.myapp.data.MyViewModel
 
 @Composable
 fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
+    val isLoaded = myViewModel.isLoaded.value
+    if(!isLoaded)return
+
     LazyColumn (
         modifier = Modifier
             //.background(color = Color.White)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.Start
     ) {
         itemsIndexed(myViewModel.dataList) {index, item ->
             Row (

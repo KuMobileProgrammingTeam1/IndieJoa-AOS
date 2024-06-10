@@ -7,6 +7,8 @@ import retrofit2.Response
 fun ReadArtistYoutubeVideo(artist: ArtistData, isShort:Boolean): List<String> {
     val listString = artist.youtubeVideoLink
 
+    if(listString.isBlank())return emptyList()
+
     val id_lists = listString.split("/")
 
     val musicList = id_lists[0].split(" ")
