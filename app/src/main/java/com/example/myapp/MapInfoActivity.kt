@@ -61,8 +61,8 @@ class MapInfoActivity: ComponentActivity() {
             responseData?.let { data ->
                 val targetId = intent.getIntExtra("itemIndex", -1).toLong()
                 Log.d("AddressViewModel", "targetId: $targetId")
-
-                val content = data.content.find { it.id == targetId}
+                val mapId = targetId + 1
+                val content = data.content.find { it.id == mapId}
                 content?.let { addr ->
                     val placeLink = convertKakaoMapUrl(addr.placeLink)
                     Log.d("AddressViewModel", "addr: $addr")
