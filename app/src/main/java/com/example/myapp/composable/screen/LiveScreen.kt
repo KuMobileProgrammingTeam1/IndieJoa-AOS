@@ -21,6 +21,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,7 +40,7 @@ import com.example.myapp.data.MyViewModel
 fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
     val isLoaded = myViewModel.isLoaded.value
     var searchQuery by remember { mutableStateOf("") }
-    var flag:Int by remember { mutableStateOf(0) }
+    var flag by remember { mutableIntStateOf(0) }
 
     if (!isLoaded) {
         Box(
@@ -50,12 +51,13 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
         }
 
     }
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top){
+        verticalArrangement = Arrangement.Top
+    ) {
 
         OutlinedTextField(
             value = searchQuery,
@@ -69,7 +71,7 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
 
         Row {
             Button(
-                onClick = {flag = 1},
+                onClick = { flag = 1 },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
                     .size(width = 180.dp, height = 50.dp)
@@ -78,7 +80,7 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
                 Text("날짜 빠른순")
             }
             Button(
-                onClick = {flag = 2},
+                onClick = { flag = 0 },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
                     .size(width = 180.dp, height = 50.dp)
@@ -87,14 +89,14 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
                 Text("날짜 늦은순")
             }
         }
-        LazyVerticalGrid(modifier = Modifier.fillMaxWidth(),
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth(),
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState()
 
         ) {
             if (flag == 0) myViewModel.dataList2.sortBy { it.id }
-            if (flag == 1) myViewModel.dataList2.sortByDescending { it.id }
-            if (flag == 2) myViewModel.dataList2.sortBy { it.id }
+            else myViewModel.dataList2.sortByDescending { it.id }
             itemsIndexed(myViewModel.dataList2.filter { it.title.contains(searchQuery) }) { index, item ->
                 Row(
                     Modifier
