@@ -1,17 +1,39 @@
 package com.example.myapp.data
 
 import android.app.Application
+import android.util.Log
+import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import java.util.Date
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapp.Retrofit.ArtistData
+import com.example.myapp.Retrofit.InitArtistList
+import com.example.myapp.Retrofit.InitLiveList
+import com.example.myapp.Retrofit.LiveData
+import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 
-class MyViewModel(private val application:Application) : AndroidViewModel(application) {
-    var dataList = mutableListOf<AllData>()
+class MyViewModel(private val application: Application) : AndroidViewModel(application) {
+    var dataList = mutableListOf<ArtistData>()
         private set
-
+    var dataList2 = mutableListOf<LiveData>()
+        private set
+    val isLoaded = mutableStateOf(false)
     init {
-        dataList.add(AllData(bandName = "2022년 55000원", showDate = Date(2022, 10, 10), showPrice = 55000))
-        dataList.add(AllData(bandName = "2023년 45000원", showDate = Date(2023, 10, 10), showPrice = 45000))
-        dataList.add(AllData(bandName = "2024년 35000원", showDate = Date(2024, 10, 10), showPrice = 35000))
-        dataList.add(AllData(bandName = "2025년 25000원", showDate = Date(2025, 10, 10), showPrice = 25000))
+        Log.i("viewmodel", "init")
+        InitData()
+    }
+    fun InitData(){
+        viewModelScope.launch {
+            InitArtistList {
+                dataList = it.toMutableList()
+                isLoaded.value = true
+            }
+            InitLiveList {
+                dataList2 = it.toMutableList()
+                isLoaded.value = true
+            }
+        }
     }
 }

@@ -17,4 +17,4 @@ data class AllData(
     val showDate:Date = Date(1000,10,10),
     val showLocation:String = "no location",
     val showPrice:Int = 0
-)
+    )

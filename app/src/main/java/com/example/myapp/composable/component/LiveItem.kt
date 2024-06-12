@@ -27,22 +27,21 @@ import com.example.myapp.R
 import com.example.myapp.data.MyViewModel
 
 @Composable
-fun HomeItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavController) {
+fun LiveItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavController) {
     Column (
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally){
 
-
-        if(myViewModel.dataList[itemIndex].imageUrl.isNotBlank()){
+        if(myViewModel.dataList2[itemIndex].posterUrl.isNotBlank()){
             AsyncImage(
-                model = myViewModel.dataList[itemIndex].imageUrl,
-                contentDescription = myViewModel.dataList[itemIndex].name,
+                model = myViewModel.dataList2[itemIndex].posterUrl,
+                contentDescription = myViewModel.dataList2[itemIndex].title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(175.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .clickable {
-                        navController.navigate(route = "GroupDetailScreen/$itemIndex")
+                        navController.navigate(route = "GroupDetailScreen2/$itemIndex")
                     }
             )
         }
@@ -55,15 +54,27 @@ fun HomeItem(myViewModel: MyViewModel, itemIndex:Int, navController: NavControll
                     .size(175.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .clickable {
-                        navController.navigate(route = "GroupDetailScreen/$itemIndex")
+                        navController.navigate(route = "GroupDetailScreen2/$itemIndex")
                     }
             )
         }
 
         Column {
             Text(
-                text = myViewModel.dataList[itemIndex].name,
-                fontSize = 20.sp,
+                text = myViewModel.dataList2[itemIndex].title,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(start = 20.dp)
+            )
+            Text(
+                text = myViewModel.dataList2[itemIndex].startDate,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(start = 20.dp)
+            )
+            Text(
+                text = myViewModel.dataList2[itemIndex].priceInfo,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 20.dp)
             )

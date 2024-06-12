@@ -12,45 +12,29 @@ fun TestRetrofit() {
         override fun onResponse(call: Call<ArtistResponse>, response: Response<ArtistResponse>) {
             if (response.isSuccessful) {
                 val artistResponse = response.body()
-                println("testRetrofit OnResponse")
-                println("${artistResponse?.totalElements}")
-
                 artistResponse?.content?.forEach { artist ->
-                    if(artist.name == "이디어츠"){
-                        println(artist.name)
-                        println(artist.youtubeVideoLink)
-
-                        TestRetrofitInput(artist)
-
+                    println("artist =============")
+                    println(artist.id)
+                    println(artist.indieStreetId)
+                    println(artist.name)
+                    println("artist =============")
+                    if(artist.name == "제시 바레라"){
+                        print(ReadArtistYoutubeVideo(artist, false))
+//                        UpdateArtistYoutubeVideo(artist)
                     }
+
+
                 }
             } else {
                 println("failed on response")
+                TestRetrofit()
             }
         }
 
         override fun onFailure(p0: Call<ArtistResponse>, p1: Throwable) {
             println("failed on onfailure")
+            TestRetrofit()
         }
-    })
-}
-
-fun TestRetrofitInput(artist: ArtistData) {
-    val retrofitService = RetrofitFactory.create()
-
-    val tmp = artist.copy(youtubeVideoLink = "test")
-
-    val call = retrofitService.updateArtist(tmp)
-
-    call.enqueue(object : Callback<Unit> {
-        override fun onResponse(p0: Call<Unit>, p1: Response<Unit>) {
-            println("Success to Update ${artist.name}")
-        }
-
-        override fun onFailure(p0: Call<Unit>, p1: Throwable) {
-            println("Fail to Update ${artist.name}")
-        }
-
     })
 }
 

@@ -18,4 +18,15 @@ interface RetrofitService {
     fun updateArtist(
         @Body artistData: ArtistData
     ): Call<Unit>
+
+    @GET("/lives")
+    fun getAllLives(
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 10
+    ): Call<LiveResponse>
+
+    @POST("/lives")
+    fun updateLive(
+        @Body LiveData: LiveData
+    ): Call<Unit>
 }
