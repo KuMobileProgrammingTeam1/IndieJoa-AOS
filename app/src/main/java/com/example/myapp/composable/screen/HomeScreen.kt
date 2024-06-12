@@ -41,19 +41,28 @@ import com.example.myapp.data.MyViewModel
 fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
     val isLoaded = myViewModel.isLoaded.value
 
-    val pageNumber = rememberSaveable {
-        mutableStateOf(0)
-    }
-    val lastPage = 9999
+    val artistCount = myViewModel.artistCount
 
     val size = 10
+
+    val lastPage =
+        if (artistCount % size == 0) {
+            artistCount / size
+        } else {
+            artistCount / size + 1
+        }
+
+    val pageNumber = rememberSaveable {
+        mutableStateOf(1)
+    }
+
 
     val pageTextFieldNumber = rememberSaveable {
         mutableStateOf(pageNumber.value.toString())
     }
 
     LaunchedEffect(key1 = pageNumber.value) {
-        myViewModel.UpdateDataList(page = pageNumber.value, size = size)
+        myViewModel.UpdateDataList(page = pageNumber.value - 1, size = size)
     }
 
     if (!isLoaded) {
@@ -89,7 +98,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                if (pageNumber.value != 0) {
+                if (pageNumber.value != 1) {
                     PageArrowButton(icon = Icons.Filled.KeyboardArrowLeft) {
                         pageNumber.value--
                         pageTextFieldNumber.value = pageNumber.value.toString()
@@ -98,10 +107,15 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
 
                 PageTextField(
                     pageTextFieldNumber.value,
+                    lastPage.toString(),
                     onValueChange = {
                         pageTextFieldNumber.value = it
                     }, onDone = {
-                        pageNumber.value = pageTextFieldNumber.value.toInt()
+                        var num = pageTextFieldNumber.value.toInt()
+                        if (num < 1) num = 1
+                        if (num > lastPage) num = lastPage
+                        pageNumber.value = num
+                        pageTextFieldNumber.value = num.toString()
                     })
 
                 if (pageNumber.value != lastPage) {
@@ -126,13 +140,19 @@ fun PageArrowButton(icon: ImageVector, onClick: () -> Unit) {
 }
 
 @Composable
-fun PageTextField(number: String, onValueChange: (String) -> Unit, onDone: () -> Unit) {
+fun PageTextField(
+    number: String,
+    lastPage: String,
+    onValueChange: (String) -> Unit,
+    onDone: () -> Unit
+) {
     OutlinedTextField(
         value = number,
         onValueChange = {
             onValueChange(it)
         },
         singleLine = true,
+        label = { Text(text = lastPage) },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Done
@@ -142,6 +162,6 @@ fun PageTextField(number: String, onValueChange: (String) -> Unit, onDone: () ->
         ),
         modifier = Modifier
             .fillMaxHeight()
-            .width(100.dp)
+            .width(75.dp)
     )
 }
