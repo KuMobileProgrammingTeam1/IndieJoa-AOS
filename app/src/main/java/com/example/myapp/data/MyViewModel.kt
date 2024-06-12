@@ -1,14 +1,12 @@
 package com.example.myapp.data
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapp.Retrofit.ArtistData
-import com.example.myapp.Retrofit.InitLiveList
 import com.example.myapp.Retrofit.LiveData
-import com.example.myapp.Retrofit.initArtistList
+import com.example.myapp.Retrofit.getArtistList
 import kotlinx.coroutines.launch
 
 class MyViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -18,19 +16,34 @@ class MyViewModel(private val application: Application) : AndroidViewModel(appli
         private set
     val isLoaded = mutableStateOf(false)
 
-    init {
-        Log.i("viewmodel", "init")
-        InitData()
-    }
+    var artistList = mutableListOf<ArtistData>()
+    val isArtistListLoaded = mutableStateOf(false)
+    var pageNum = 0
 
-    fun InitData() {
+//    init {
+//        Log.i("viewmodel", "init")
+//        InitData()
+//    }
+//
+//    fun InitData() {
+//        viewModelScope.launch {
+//            initArtistList {
+//                dataList = it.toMutableList()
+//                isLoaded.value = true
+//            }
+//            InitLiveList {
+//                dataList2 = it.toMutableList()
+//            }
+//        }
+//    }
+
+    fun updateArtistList(page: Int = 0, size: Int = 20, name: String = "") {
+        isArtistListLoaded.value = false
         viewModelScope.launch {
-            initArtistList {
-                dataList = it.toMutableList()
-                isLoaded.value = true
-            }
-            InitLiveList {
-                dataList2 = it.toMutableList()
+            getArtistList(page = page, size = size, name = name) { resList, res_num ->
+                artistList = resList.toMutableList()
+                pageNum = res_num
+                isArtistListLoaded.value = true
             }
         }
     }

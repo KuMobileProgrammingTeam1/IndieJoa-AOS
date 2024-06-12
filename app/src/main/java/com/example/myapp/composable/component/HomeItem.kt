@@ -28,8 +28,8 @@ fun HomeItem(myViewModel: MyViewModel, itemIndex: Int, navController: NavControl
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = myViewModel.dataList[itemIndex].imageUrl,
-            contentDescription = myViewModel.dataList[itemIndex].name,
+            model = myViewModel.artistList[itemIndex].imageUrl,
+            contentDescription = myViewModel.artistList[itemIndex].name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(175.dp)
@@ -43,7 +43,7 @@ fun HomeItem(myViewModel: MyViewModel, itemIndex: Int, navController: NavControl
 
         Column {
             Text(
-                text = myViewModel.dataList[itemIndex].name,
+                text = myViewModel.artistList[itemIndex].name,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 20.dp)

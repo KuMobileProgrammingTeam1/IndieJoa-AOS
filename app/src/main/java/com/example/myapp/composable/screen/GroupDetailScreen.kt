@@ -1,9 +1,6 @@
 package com.example.myapp.composable.screen
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,10 +33,10 @@ fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
     ) {
         //정보 제공 화면
         item {
-            if (!myViewModel.dataList[itemIndex].imageUrl.isBlank()) {
+            if (myViewModel.artistList[itemIndex].imageUrl.isNotBlank()) {
                 AsyncImage(
-                    model = myViewModel.dataList[itemIndex].imageUrl,
-                    contentDescription = myViewModel.dataList[itemIndex].name,
+                    model = myViewModel.artistList[itemIndex].imageUrl,
+                    contentDescription = myViewModel.artistList[itemIndex].name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -47,7 +44,7 @@ fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
             } else {
                 Image(
                     painter = painterResource(id = R.drawable.defaultimg),
-                    contentDescription = myViewModel.dataList[itemIndex].name,
+                    contentDescription = myViewModel.artistList[itemIndex].name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -57,29 +54,29 @@ fun GroupDetailScreen(myViewModel: MyViewModel, itemIndex: Int?) {
         //지도는 여기에 추가해주세요
         item {
             Text(
-                text = myViewModel.dataList[itemIndex].name,
+                text = myViewModel.artistList[itemIndex].name,
                 fontSize = 50.sp,
                 modifier = Modifier.padding(bottom = 25.dp)
             )
         }
         item {
-            Text(text = "${myViewModel.dataList[itemIndex].name}의 음악 리스트", fontSize = 25.sp)
+            Text(text = "${myViewModel.artistList[itemIndex].name}의 음악 리스트", fontSize = 25.sp)
         }
         //음악, 쇼츠 리스트화면
         item {
             ShowThumbnail(
-                videoIds = ReadArtistYoutubeVideo(myViewModel.dataList[itemIndex], false),
+                videoIds = ReadArtistYoutubeVideo(myViewModel.artistList[itemIndex], false),
                 Modifier
                     .size(320.dp, 180.dp)
                     .padding(8.dp)
             )
         }
         item {
-            Text(text = "${myViewModel.dataList[itemIndex].name}의 쇼츠 리스트", fontSize = 25.sp)
+            Text(text = "${myViewModel.artistList[itemIndex].name}의 쇼츠 리스트", fontSize = 25.sp)
         }
         item {
             ShowThumbnail(
-                videoIds = ReadArtistYoutubeVideo(myViewModel.dataList[itemIndex], true),
+                videoIds = ReadArtistYoutubeVideo(myViewModel.artistList[itemIndex], true),
                 Modifier
                     .size(160.dp, 160.dp)
                     .padding(8.dp)
