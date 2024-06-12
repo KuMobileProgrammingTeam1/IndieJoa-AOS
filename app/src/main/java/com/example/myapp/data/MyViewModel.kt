@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapp.Retrofit.ArtistData
+import com.example.myapp.Retrofit.GetArtistList
 import com.example.myapp.Retrofit.InitArtistList
 import kotlinx.coroutines.launch
 
@@ -14,13 +15,11 @@ class MyViewModel(private val application: Application) : AndroidViewModel(appli
     var dataList = mutableListOf<ArtistData>()
         private set
     val isLoaded = mutableStateOf(false)
-    init {
-        Log.i("viewmodel", "init")
-        InitData()
-    }
-    fun InitData(){
+
+    fun UpdateDataList(page:Int = 0, size:Int = 100){
+        isLoaded.value = false
         viewModelScope.launch {
-            InitArtistList {
+            GetArtistList(page = page, size = size){
                 dataList = it.toMutableList()
                 isLoaded.value = true
             }

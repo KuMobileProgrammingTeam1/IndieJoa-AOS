@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,11 @@ import com.example.myapp.data.MyViewModel
 @Composable
 fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
     val isLoaded = myViewModel.isLoaded.value
+
+    LaunchedEffect(key1 = Unit) {
+        myViewModel.UpdateDataList(0, 5000)
+    }
+
     if (!isLoaded) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -31,7 +37,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
         ) {
             Text("Now Loading...", fontSize = 25.sp)
         }
-
+        return
     }
 
     LazyColumn(
