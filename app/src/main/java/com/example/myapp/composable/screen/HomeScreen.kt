@@ -98,13 +98,10 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                     }
                 },
                 modifier = Modifier
-                    .padding(bottom = 10.dp),
+                    .padding(bottom = 10.dp)
+                    .fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
-                })
-            )
-            Button(
-                onClick = {
                     artistName.value = artistNameText.value
                     if (pageNum.value == 1) {
                         myViewModel.refreshArtistList(
@@ -116,20 +113,13 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                         pageNum.value = 1
                         pageNumText.value = pageNum.value.toString()
                     }
-                },
-                modifier = Modifier
-                    .size(width = 70.dp, height = 65.dp)
-                    .padding(top = 8.dp),
-                shape = RoundedCornerShape(4.dp),
-            ) {
-                Icon(imageVector = Icons.Default.Refresh, contentDescription = "")
-            }
+                })
+            )
         }
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState()
-
         ) {
             itemsIndexed(myViewModel.artistList) { index, artist ->
                 Row(
@@ -221,5 +211,4 @@ fun PageTextField(
                 .width(75.dp)
         )
     }
-
 }
