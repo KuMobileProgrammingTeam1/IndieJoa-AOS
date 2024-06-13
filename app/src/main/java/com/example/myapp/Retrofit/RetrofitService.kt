@@ -11,7 +11,8 @@ interface RetrofitService {
     @GET("/artists")
     fun getAllArtists(
         @Query("page") page: Int = 0,
-        @Query("size") size: Int = 10
+        @Query("size") size: Int = 10,
+        @Query("name") name: String = ""
     ): Call<ArtistResponse>
 
     @POST("/artist")
