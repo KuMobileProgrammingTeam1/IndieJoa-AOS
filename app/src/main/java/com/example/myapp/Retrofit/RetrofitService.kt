@@ -23,11 +23,9 @@ interface RetrofitService {
     @GET("/lives")
     fun getAllLives(
         @Query("page") page: Int = 0,
-        @Query("size") size: Int = 10
+        @Query("size") size: Int = 10,
+        @Query("title") name: String = "",
+        @Query("sort") sort: Int = 0,
     ): Call<LiveResponse>
 
-    @POST("/lives")
-    fun updateLive(
-        @Body LiveData: LiveData
-    ): Call<Unit>
 }
