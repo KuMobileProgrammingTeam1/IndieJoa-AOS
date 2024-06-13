@@ -19,31 +19,32 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.myapp.R
+import com.example.myapp.Retrofit.ArtistData
 import com.example.myapp.data.MyViewModel
 
 @Composable
-fun HomeItem(myViewModel: MyViewModel, itemIndex: Int, navController: NavController) {
+fun HomeItem(artistData: ArtistData, myViewModel: MyViewModel, navController: NavController) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = myViewModel.artistList[itemIndex].imageUrl,
-            contentDescription = myViewModel.artistList[itemIndex].name,
+            model = artistData.imageUrl,
+            contentDescription = artistData.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(175.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .clickable {
-                    navController.navigate(route = "GroupDetailScreen/$itemIndex")
+                    myViewModel.selectedArtistData = artistData
+                    navController.navigate(route = "GroupDetailScreen")
                 },
             error = painterResource(id = R.drawable.defaultimg)
         )
 
-
         Column {
             Text(
-                text = myViewModel.artistList[itemIndex].name,
+                text = artistData.name,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 20.dp)

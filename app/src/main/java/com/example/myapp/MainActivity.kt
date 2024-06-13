@@ -6,15 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -55,7 +54,7 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .size(width = 180.dp, height = 50.dp)
                                         .padding(start = 3.dp)
-                                    ) {
+                                ) {
                                     Text("뮤지션")
                                 }
                                 Button(
@@ -88,7 +87,10 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 val myViewModel: MyViewModel by viewModels()
 
-                                NavHost(navController = navController, startDestination = "HomeScreen") {
+                                NavHost(
+                                    navController = navController,
+                                    startDestination = "HomeScreen"
+                                ) {
                                     composable(route = "HomeScreen") {
                                         HomeScreen(myViewModel, navController)
                                     }
@@ -97,16 +99,8 @@ class MainActivity : ComponentActivity() {
                                         LiveScreen(myViewModel, navController)
                                     }
 
-                                    composable(
-                                        route = "GroupDetailScreen/{index}",
-                                        arguments = listOf(
-                                            navArgument(name = "index") {
-                                                type = NavType.IntType
-                                            }
-                                        )
-                                    ) { backStackEntry ->
-                                        val itemIndex = backStackEntry.arguments?.getInt("index")
-                                        GroupDetailScreen(myViewModel, itemIndex)
+                                    composable(route = "GroupDetailScreen") {
+                                        GroupDetailScreen(myViewModel)
                                     }
 
                                     composable(

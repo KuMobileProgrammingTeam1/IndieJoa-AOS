@@ -17,32 +17,16 @@ class MyViewModel(private val application: Application) : AndroidViewModel(appli
     val isLoaded = mutableStateOf(false)
 
     var artistList = mutableListOf<ArtistData>()
+    var selectedArtistData: ArtistData? = null
     val isArtistListLoaded = mutableStateOf(false)
-    var pageNum = 0
+    var artistLastPage = 1
 
-//    init {
-//        Log.i("viewmodel", "init")
-//        InitData()
-//    }
-//
-//    fun InitData() {
-//        viewModelScope.launch {
-//            initArtistList {
-//                dataList = it.toMutableList()
-//                isLoaded.value = true
-//            }
-//            InitLiveList {
-//                dataList2 = it.toMutableList()
-//            }
-//        }
-//    }
-
-    fun updateArtistList(page: Int = 0, size: Int = 20, name: String = "") {
+    fun refreshArtistList(page: Int = 0, size: Int = 20, name: String = "") {
         isArtistListLoaded.value = false
         viewModelScope.launch {
-            getArtistList(page = page, size = size, name = name) { resList, res_num ->
+            getArtistList(page = page, size = size, name = name) { resList, resNum ->
                 artistList = resList.toMutableList()
-                pageNum = res_num
+                artistLastPage = resNum
                 isArtistListLoaded.value = true
             }
         }

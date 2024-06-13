@@ -30,11 +30,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,31 +48,27 @@ import com.example.myapp.data.MyViewModel
 @Composable
 fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
     val isLoaded = myViewModel.isArtistListLoaded.value
-
     val size = 20
-
-    val lastPage = myViewModel.pageNum
-
+    val lastPage = myViewModel.artistLastPage
     val pageNum = rememberSaveable {
         mutableStateOf(1)
     }
-
     val pageNumText = rememberSaveable {
         mutableStateOf(pageNum.value.toString())
     }
-
     val artistName = rememberSaveable {
         mutableStateOf("")
     }
-
-    val artistNametext = rememberSaveable {
+    val artistNameText = rememberSaveable {
         mutableStateOf(artistName.value)
     }
 
-    var searchQuery by remember { mutableStateOf("") }
-
     LaunchedEffect(key1 = pageNum.value) {
-        myViewModel.updateArtistList(page = pageNum.value - 1, size = size, name = artistName.value)
+        myViewModel.refreshArtistList(
+            page = pageNum.value - 1,
+            size = size,
+            name = artistName.value
+        )
     }
 
     if (!isLoaded) {
@@ -96,8 +89,8 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
     ) {
         Row {
             OutlinedTextField(
-                value = artistNametext.value,
-                onValueChange = { artistNametext.value = it },
+                value = artistNameText.value,
+                onValueChange = { artistNameText.value = it },
                 label = {
                     Row {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "")
@@ -112,9 +105,9 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
             )
             Button(
                 onClick = {
-                    artistName.value = artistNametext.value
+                    artistName.value = artistNameText.value
                     if (pageNum.value == 1) {
-                        myViewModel.updateArtistList(
+                        myViewModel.refreshArtistList(
                             page = pageNum.value - 1,
                             size = size,
                             name = artistName.value
@@ -138,7 +131,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
             state = rememberLazyGridState()
 
         ) {
-            itemsIndexed(myViewModel.artistList) { index, _ ->
+            itemsIndexed(myViewModel.artistList) { index, artist ->
                 Row(
                     Modifier
                         .background(Color.Transparent)
@@ -146,7 +139,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                         .padding(top = 12.dp, bottom = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    HomeItem(myViewModel, index, navController)
+                    HomeItem(artist, myViewModel, navController)
                 }
             }
             item(span = { GridItemSpan(2) }) {
@@ -169,7 +162,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                             pageNumText.value = it
                         }, onDone = {
                             var num = pageNumText.value.toInt()
-                            if (num < 1) num = 1
+                            if (num < 0) num = 0
                             if (num > lastPage) num = lastPage
                             pageNum.value = num
                             pageNumText.value = num.toString()
