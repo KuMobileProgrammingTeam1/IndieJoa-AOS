@@ -48,7 +48,6 @@ class MapActivity : ComponentActivity() {
         val errorMessage by addressViewModel.errorMessage.observeAsState()
         val isLoaded = addressViewModel.isStageDataLoaded.value
 
-
         Column(modifier = Modifier.padding(16.dp)) {
             errorMessage?.let {
                 Box(

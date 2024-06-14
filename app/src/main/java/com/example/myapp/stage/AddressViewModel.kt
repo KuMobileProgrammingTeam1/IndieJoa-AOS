@@ -32,7 +32,6 @@ class AddressViewModel : ViewModel() {
             } catch (e: HttpException) {
                 _errorMessage.value = "공연장 정보가 없습니다."
                 Log.e("AddressViewModel", "Failed to get addresses", e)
-
             } catch (e: Exception) {
                 _errorMessage.value = "Error: ${e.message}"
                 Log.e("AddressViewModel", "Failed to get addresses", e)
