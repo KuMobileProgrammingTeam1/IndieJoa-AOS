@@ -204,8 +204,14 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
                         onValueChange = {
                             pageNumText.value = it
                         }, onDone = {
-                            var num = pageNumText.value.toInt()
-                            if (num < 0) num = 0
+                            var num:Int = 0
+                            try{
+                                num = pageNumText.value.toInt()
+                            }catch (e:Exception) {
+                                pageNumText.value = "1"
+                                num = pageNumText.value.toInt()
+                            }
+                            if (num <= 0) num = 1
                             if (num > lastPage) num = lastPage
                             pageNum.value = num
                             pageNumText.value = num.toString()

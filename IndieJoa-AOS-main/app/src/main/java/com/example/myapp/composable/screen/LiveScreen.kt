@@ -27,11 +27,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,33 +47,41 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapp.composable.component.HomeItem
+import com.example.myapp.composable.component.LiveItem
 import com.example.myapp.data.MyViewModel
-import org.jetbrains.annotations.Nullable
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
-fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
-    val isLoaded = myViewModel.isArtistListLoaded.value
+fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
+
+    val isLoaded = myViewModel.isLiveListLoaded.value
     val size = 20
-    val lastPage = myViewModel.artistLastPage
+    val lastPage = myViewModel.liveLastPage
+    var checkedDateSort by rememberSaveable { mutableStateOf(false) }
+
     val pageNum = rememberSaveable {
         mutableStateOf(1)
     }
     val pageNumText = rememberSaveable {
         mutableStateOf(pageNum.value.toString())
     }
-    val artistName = rememberSaveable {
+    val liveName = rememberSaveable {
         mutableStateOf("")
     }
-    val artistNameText = rememberSaveable {
-        mutableStateOf(artistName.value)
+    val liveNameText = rememberSaveable {
+        mutableStateOf(liveName.value)
+    }
+    val liveSort = rememberSaveable {
+        mutableIntStateOf(0)
     }
 
-    LaunchedEffect(key1 = pageNum.value) {
-        myViewModel.refreshArtistList(
+    LaunchedEffect(key1 = pageNum.value, key2 = liveSort) {
+        myViewModel.refreshLiveList(
             page = pageNum.value - 1,
             size = size,
-            name = artistName.value
+            name = liveName.value,
+            sort = liveSort.value
         )
     }
 
@@ -88,27 +101,34 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Row {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             OutlinedTextField(
-                value = artistNameText.value,
-                onValueChange = { artistNameText.value = it },
+                value = liveNameText.value,
+                onValueChange = { liveNameText.value = it },
                 label = {
                     Row {
                         Icon(imageVector = Icons.Default.Search, contentDescription = "")
-                        Text("뮤지션 이름", modifier = Modifier.padding(start = 2.dp))
+                        Text("공연 이름", modifier = Modifier.padding(start = 2.dp))
                     }
                 },
                 modifier = Modifier
-                    .padding(bottom = 10.dp)
-                    .fillMaxWidth(),
+                    .weight(1f)
+                    .padding(end = 8.dp),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
-                    artistName.value = artistNameText.value
+                    liveName.value = liveNameText.value
+                    liveSort.value = liveSort.value
                     if (pageNum.value == 1) {
-                        myViewModel.refreshArtistList(
+                        myViewModel.refreshLiveList(
                             page = pageNum.value - 1,
                             size = size,
-                            name = artistName.value
+                            name = liveName.value,
+                            sort = liveSort.value
                         )
                     } else {
                         pageNum.value = 1
@@ -116,13 +136,45 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                     }
                 })
             )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Switch(
+                    checked = checkedDateSort,
+                    onCheckedChange = {
+                        checkedDateSort = it
+                        if (liveSort.value == 0) liveSort.value++
+                        else liveSort.value--
+                        liveName.value = liveNameText.value
+                        liveSort.value = liveSort.value
+                        if (pageNum.value == 1) {
+                            myViewModel.refreshLiveList(
+                                page = pageNum.value - 1,
+                                size = size,
+                                name = liveName.value,
+                                sort = liveSort.value
+                            )
+                        } else {
+                            pageNum.value = 1
+                            pageNumText.value = pageNum.value.toString()
+                        }
+                    }
+                )
+                Text(
+                    text = "최신등록",
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            }
         }
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState()
+
         ) {
-            itemsIndexed(myViewModel.artistList) { index, artist ->
+            itemsIndexed(myViewModel.liveList) { index, live ->
                 Row(
                     Modifier
                         .background(Color.Transparent)
@@ -130,7 +182,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                         .padding(top = 12.dp, bottom = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    HomeItem(artist, myViewModel, navController)
+                    LiveItem(live, myViewModel, navController)
                 }
             }
             item(span = { GridItemSpan(2) }) {
@@ -152,14 +204,8 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                         onValueChange = {
                             pageNumText.value = it
                         }, onDone = {
-                            var num:Int = 0
-                            try{
-                                num = pageNumText.value.toInt()
-                            }catch (e:Exception) {
-                                pageNumText.value = "1"
-                                num = pageNumText.value.toInt()
-                            }
-                            if (num <= 0) num = 1
+                            var num = pageNumText.value.toInt()
+                            if (num < 0) num = 0
                             if (num > lastPage) num = lastPage
                             pageNum.value = num
                             pageNumText.value = num.toString()
@@ -174,48 +220,5 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                 }
             }
         }
-    }
-}
-
-
-@Composable
-fun PageArrowButton(icon: ImageVector, onClick: () -> Unit) {
-    IconButton(onClick = onClick, modifier = Modifier) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null
-        )
-    }
-}
-
-@Composable
-fun PageTextField(
-    number: String,
-    lastPage: String,
-    onValueChange: (String) -> Unit,
-    onDone: () -> Unit
-) {
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        OutlinedTextField(
-            value = number,
-            onValueChange = {
-                onValueChange(it)
-            },
-            singleLine = true,
-            label = { Text(text = lastPage) },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.NumberPassword,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { onDone() }
-            ),
-            modifier = Modifier
-                //.fillMaxHeight()
-                .width(75.dp)
-        )
     }
 }
