@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapp.composable.component.HomeItem
 import com.example.myapp.data.MyViewModel
+import org.jetbrains.annotations.Nullable
 
 
 @Composable
@@ -151,8 +152,14 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
                         onValueChange = {
                             pageNumText.value = it
                         }, onDone = {
-                            var num = pageNumText.value.toInt()
-                            if (num < 0) num = 0
+                            var num:Int = 0
+                            try{
+                                num = pageNumText.value.toInt()
+                            }catch (e:Exception) {
+                                pageNumText.value = "1"
+                                num = pageNumText.value.toInt()
+                            }
+                            if (num <= 0) num = 1
                             if (num > lastPage) num = lastPage
                             pageNum.value = num
                             pageNumText.value = num.toString()
@@ -200,7 +207,7 @@ fun PageTextField(
             singleLine = true,
             label = { Text(text = lastPage) },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
+                keyboardType = KeyboardType.NumberPassword,
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
