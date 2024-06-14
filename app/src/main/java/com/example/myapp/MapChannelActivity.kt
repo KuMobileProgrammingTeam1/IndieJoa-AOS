@@ -50,7 +50,12 @@ class MapChannelActivity : ComponentActivity() {
 
         Column(modifier = Modifier.padding(16.dp)) {
             errorMessage?.let {
-                Text(text = it)
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = it, fontSize = 25.sp)
+                }
             }
 
             if (!isLoaded) {
@@ -66,7 +71,12 @@ class MapChannelActivity : ComponentActivity() {
             stageData?.let { data ->
                 val youtubeChannelLink = data.youtubeChannelLink
                 if (youtubeChannelLink.isBlank()) {
-                    Text(text = "youtube channel NOT FOUND")
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "youtube channel NOT FOUND", fontSize = 25.sp)
+                    }
                     return
                 }
                 AndroidView(factory = {

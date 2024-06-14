@@ -48,9 +48,15 @@ class MapActivity : ComponentActivity() {
         val errorMessage by addressViewModel.errorMessage.observeAsState()
         val isLoaded = addressViewModel.isStageDataLoaded.value
 
+
         Column(modifier = Modifier.padding(16.dp)) {
             errorMessage?.let {
-                Text(text = it)
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = it, fontSize = 25.sp)
+                }
             }
 
             if (!isLoaded) {
@@ -66,7 +72,12 @@ class MapActivity : ComponentActivity() {
             stageData?.let { data ->
                 val placeLink = data.placeLink
                 if (placeLink.isBlank()) {
-                    Text(text = "address NOT FOUND")
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "address NOT FOUND", fontSize = 25.sp)
+                    }
                     return
                 }
                 AndroidView(factory = {
