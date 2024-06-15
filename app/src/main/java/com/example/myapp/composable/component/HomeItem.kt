@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -47,9 +48,10 @@ fun HomeItem(artistData: ArtistData, myViewModel: MyViewModel, navController: Na
             Text(
                 color = Color.White,
                 text = artistData.name,
+                textAlign = TextAlign.Center,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 20.dp)
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }

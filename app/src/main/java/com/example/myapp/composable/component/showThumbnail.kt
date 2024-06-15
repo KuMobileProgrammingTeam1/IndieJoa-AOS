@@ -4,8 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -20,19 +23,26 @@ import com.example.myapp.R
 @Composable
 fun ShowThumbnail(videoIds: List<String>, modifier: Modifier) {
     val context = LocalContext.current
+    if (videoIds.isEmpty()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.black_notification),
+                contentDescription = "Blank",
+            )
+        }
+        return
+    }
+
     LazyRow(
         modifier = Modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(8.dp)
     ) {
-        item {
-            if (videoIds.isEmpty()) {
-                Image(
-                    painter = painterResource(id = R.drawable.black_notification),
-                    contentDescription = "Blank"
-                )
-            }
-        }
         items(videoIds) { videoId ->
             val imageUrl = "https://img.youtube.com/vi/$videoId/0.jpg"
             val videoUrl = "https://www.youtube.com/watch?v=$videoId"

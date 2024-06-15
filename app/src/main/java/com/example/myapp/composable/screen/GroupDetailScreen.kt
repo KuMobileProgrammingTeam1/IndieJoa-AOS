@@ -1,5 +1,6 @@
 package com.example.myapp.composable.screen
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,12 +42,34 @@ fun GroupDetailScreen(myViewModel: MyViewModel) {
             )
         }
         item {
-            Text(
-                color = Color.White,
-                text = artistData.name,
-                fontSize = 50.sp,
-                modifier = Modifier.padding(bottom = 25.dp)
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp),
+            ) {
+                Text(
+                    color = Color.White,
+                    text = artistData.name,
+                    fontSize = 50.sp,
+                )
+                Column {
+                    if (artistData.nameEn.isNotBlank()) {
+                        Text(
+                            color = Color.White,
+                            text = artistData.nameEn,
+                            fontSize = 20.sp,
+                        )
+                    }
+                    if (artistData.nameJp.isNotBlank()) {
+                        Text(
+                            color = Color.White,
+                            text = artistData.nameJp,
+                            fontSize = 20.sp,
+                        )
+                    }
+                }
+
+            }
         }
         item {
             Text(color = Color.White, text = "${artistData.name}의 음악 리스트", fontSize = 25.sp)

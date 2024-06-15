@@ -156,7 +156,7 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
                 }
             }
         }
-        if(liveData.description == " ") {
+        if (liveData.description == " ") {
             item {
                 Text(
                     color = Color.White,
@@ -165,8 +165,7 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
                     modifier = Modifier.padding(bottom = 25.dp)
                 )
             }
-        }
-        else {
+        } else {
             item {
                 Text(
                     color = Color.White,
@@ -177,7 +176,18 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
             }
         }
         item {
-            LinkButton(link = liveData.purchaseTicketLink, buttonText = "티켓 예매처")
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(3.dp),
+                horizontalArrangement = Arrangement.Center,
+
+                ) {
+                LinkButton(
+                    link = liveData.purchaseTicketLink,
+                    buttonText = "티켓 예매처",
+                )
+            }
         }
     }
 }
@@ -189,6 +199,8 @@ fun LinkButton(link: String, buttonText: String) {
 
     Button(
         colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF2196F3),
+            contentColor = Color.White,
             disabledContainerColor = Color.Gray,
             disabledContentColor = Color.Black
         ),
@@ -198,13 +210,21 @@ fun LinkButton(link: String, buttonText: String) {
             try {
                 context.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(context, "No application can handle this request. Please install a web browser.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "No application can handle this request. Please install a web browser.",
+                    Toast.LENGTH_LONG
+                ).show()
             } catch (e: Exception) {
-                Toast.makeText(context, "An unexpected error occurred: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "An unexpected error occurred: ${e.localizedMessage}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         },
         enabled = isEnabled
     ) {
-        Text(text = buttonText)
+        Text(text = buttonText, fontSize = 15.sp, fontWeight = FontWeight.Bold)
     }
 }

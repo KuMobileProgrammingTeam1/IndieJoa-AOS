@@ -8,24 +8,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
@@ -35,22 +29,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.myapp.composable.component.HomeItem
 import com.example.myapp.composable.component.LiveItem
 import com.example.myapp.data.MyViewModel
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
@@ -91,7 +80,7 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Now Loading...", fontSize = 25.sp)
+            Text("Now Loading...", fontSize = 25.sp, color = Color.White)
         }
         return
     }
@@ -110,11 +99,11 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
         ) {
             OutlinedTextField(
                 colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White,
-                unfocusedBorderColor = Color.White,
-                unfocusedLabelColor = Color.White,
-                focusedTextColor = Color.White
-            ),
+                    unfocusedTextColor = Color.White,
+                    unfocusedBorderColor = Color.White,
+                    unfocusedLabelColor = Color.White,
+                    focusedTextColor = Color.White
+                ),
                 value = liveNameText.value,
                 onValueChange = { liveNameText.value = it },
                 label = {
@@ -212,10 +201,10 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
                         onValueChange = {
                             pageNumText.value = it
                         }, onDone = {
-                            var num:Int = 0
-                            try{
+                            var num: Int = 0
+                            try {
                                 num = pageNumText.value.toInt()
-                            }catch (e:Exception) {
+                            } catch (e: Exception) {
                                 pageNumText.value = "1"
                                 num = pageNumText.value.toInt()
                             }
