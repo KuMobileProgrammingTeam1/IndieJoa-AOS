@@ -28,7 +28,6 @@ class MapActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val targetId = intent.getIntExtra("stageId", -1)
         if (targetId != -1) {
             addressViewModel.getAddresses(targetId)
@@ -47,7 +46,6 @@ class MapActivity : ComponentActivity() {
         val stageData by addressViewModel.responseData.observeAsState()
         val errorMessage by addressViewModel.errorMessage.observeAsState()
         val isLoaded = addressViewModel.isStageDataLoaded.value
-
 
         Column(modifier = Modifier.padding(16.dp)) {
             errorMessage?.let {

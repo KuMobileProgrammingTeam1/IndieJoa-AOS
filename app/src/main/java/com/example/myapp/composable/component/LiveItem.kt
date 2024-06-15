@@ -39,7 +39,7 @@ fun LiveItem(liveData: LiveData, myViewModel: MyViewModel, navController: NavCon
                 .clip(RoundedCornerShape(16.dp))
                 .clickable {
                     myViewModel.selectedLiveData = liveData
-                    navController.navigate(route = "GroupDetailScreen2")
+                    navController.navigate(route = "LiveDetailScreen")
                 },
             error = painterResource(id = R.drawable.defaultimg)
         )
@@ -52,7 +52,7 @@ fun LiveItem(liveData: LiveData, myViewModel: MyViewModel, navController: NavCon
                 modifier = Modifier.padding(start = 20.dp)
             )
             Text(
-                text = "날짜: " +parsingDate(liveData.startDate),
+                text = "날짜: " + parsingDate(liveData.startDate),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Light,
                 modifier = Modifier.padding(start = 15.dp)
@@ -70,6 +70,7 @@ fun LiveItem(liveData: LiveData, myViewModel: MyViewModel, navController: NavCon
 fun parsingDate(input: String): String {
     return input.substring(0, 10)
 }
+
 fun parsingPrice(input: String): String {
     val regex = Regex("""([\d,.]+)(?=\s*원|\s*won)""")
     val match = regex.find(input)
