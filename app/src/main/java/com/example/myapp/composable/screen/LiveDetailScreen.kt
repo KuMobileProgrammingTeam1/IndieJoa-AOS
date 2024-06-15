@@ -16,6 +16,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,17 +27,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapp.MapActivity
 import com.example.myapp.MapChannelActivity
 import com.example.myapp.R
 import com.example.myapp.data.MyViewModel
+import com.example.myapp.stage.AddressViewModel
+
 
 @Composable
-fun GroupDetailScreen2(myViewModel: MyViewModel) {
+fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewModel = viewModel()) {
     if (myViewModel.selectedLiveData == null) return
 
     val liveData = myViewModel.selectedLiveData!!
+    addressViewModel.getAddresses(liveData.stageId)
+    val isPlaceLinkAvailable by addressViewModel.isPlaceLinkAvailable.observeAsState(false)
+    val isYoutubeLinkAvailable by addressViewModel.isYoutubeLinkAvailable.observeAsState(false)
 
     LazyColumn(
         modifier = Modifier
@@ -68,6 +76,7 @@ fun GroupDetailScreen2(myViewModel: MyViewModel) {
                         }
                         context.startActivity(intent)
                     },
+                    enabled = isPlaceLinkAvailable,
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFEB3B),
@@ -105,7 +114,9 @@ fun GroupDetailScreen2(myViewModel: MyViewModel) {
                             putExtra("stageId", stageId)
                         }
                         context.startActivity(intent)
-                    }, shape = RoundedCornerShape(12.dp),
+                    },
+                    enabled = isYoutubeLinkAvailable,
+                    shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Red,
                         contentColor = Color.White

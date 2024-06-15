@@ -27,15 +27,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapp.composable.screen.GroupDetailScreen
-import com.example.myapp.composable.screen.GroupDetailScreen2
 import com.example.myapp.composable.screen.HomeScreen
+import com.example.myapp.composable.screen.LiveDetailScreen
 import com.example.myapp.composable.screen.LiveScreen
 import com.example.myapp.data.MyViewModel
+import com.example.myapp.stage.AddressViewModel
 import com.example.myapp.ui.theme.MyAppTheme
 import com.example.myapp.ui.theme.bottomBarButtonContainerColor
 import com.example.myapp.ui.theme.bottomBarContainerColor
@@ -128,6 +128,7 @@ class MainActivity : ComponentActivity() {
                                 color = Color.Transparent
                             ) {
                                 val myViewModel: MyViewModel by viewModels()
+                                val addressViewModel: AddressViewModel by viewModels()
 
                                 NavHost(
                                     navController = navController,
@@ -144,8 +145,8 @@ class MainActivity : ComponentActivity() {
                                     composable(route = "GroupDetailScreen") {
                                         GroupDetailScreen(myViewModel)
                                     }
-                                    composable(route = "GroupDetailScreen2") {
-                                        GroupDetailScreen2(myViewModel)
+                                    composable(route = "LiveDetailScreen") {
+                                        LiveDetailScreen(myViewModel, addressViewModel)
                                     }
                                 }
 

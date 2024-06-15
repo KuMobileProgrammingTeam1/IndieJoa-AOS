@@ -28,7 +28,6 @@ class MapActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val targetId = intent.getIntExtra("stageId", -1)
         if (targetId != -1) {
             addressViewModel.getAddresses(targetId)

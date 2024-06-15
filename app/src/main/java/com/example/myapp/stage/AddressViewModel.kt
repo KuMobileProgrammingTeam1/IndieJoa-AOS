@@ -20,6 +20,13 @@ class AddressViewModel : ViewModel() {
 
     val isStageDataLoaded = mutableStateOf(false)
 
+    private val _isPlaceLinkAvailable = MutableLiveData<Boolean>()
+    val isPlaceLinkAvailable: LiveData<Boolean> get() = _isPlaceLinkAvailable
+
+    private val _isYoutubeLinkAvailable = MutableLiveData<Boolean>()
+
+    val isYoutubeLinkAvailable: LiveData<Boolean> get() = _isYoutubeLinkAvailable
+
     fun getAddresses(indieStreetId: Int) {
         isStageDataLoaded.value = false
         viewModelScope.launch {
@@ -27,6 +34,8 @@ class AddressViewModel : ViewModel() {
                 Log.d("AddressViewModel", "id: $indieStreetId")
                 val responseData = addressService.getAddressById(indieStreetId)
                 _responseData.value = responseData
+                _isPlaceLinkAvailable.value = !responseData.placeLink.isBlank()
+                _isYoutubeLinkAvailable.value = !responseData.youtubeChannelLink.isBlank()
                 Log.d("AddressViewModel", "Response data: $responseData")
                 isStageDataLoaded.value = true
             } catch (e: HttpException) {
