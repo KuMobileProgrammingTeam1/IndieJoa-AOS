@@ -27,6 +27,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -108,6 +109,12 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
+                colors = OutlinedTextFieldDefaults.colors(
+                unfocusedTextColor = Color.White,
+                unfocusedBorderColor = Color.White,
+                unfocusedLabelColor = Color.White,
+                focusedTextColor = Color.White
+            ),
                 value = liveNameText.value,
                 onValueChange = { liveNameText.value = it },
                 label = {
@@ -162,6 +169,7 @@ fun LiveScreen(myViewModel: MyViewModel, navController: NavController) {
                     }
                 )
                 Text(
+                    color = Color.White,
                     text = "최신등록",
                     fontSize = 16.sp,
                     modifier = Modifier.padding(bottom = 4.dp)

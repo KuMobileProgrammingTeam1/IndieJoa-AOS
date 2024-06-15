@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -41,13 +42,14 @@ fun GroupDetailScreen(myViewModel: MyViewModel) {
         }
         item {
             Text(
+                color = Color.White,
                 text = artistData.name,
                 fontSize = 50.sp,
                 modifier = Modifier.padding(bottom = 25.dp)
             )
         }
         item {
-            Text(text = "${artistData.name}의 음악 리스트", fontSize = 25.sp)
+            Text(color = Color.White, text = "${artistData.name}의 음악 리스트", fontSize = 25.sp)
         }
         item {
             ShowThumbnail(
@@ -58,7 +60,7 @@ fun GroupDetailScreen(myViewModel: MyViewModel) {
             )
         }
         item {
-            Text(text = "${artistData.name}의 쇼츠 리스트", fontSize = 25.sp)
+            Text(color = Color.White, text = "${artistData.name}의 쇼츠 리스트", fontSize = 25.sp)
         }
         item {
             ShowThumbnail(

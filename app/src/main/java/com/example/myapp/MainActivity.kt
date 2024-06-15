@@ -118,7 +118,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize()
-                            .background(color = Color.Blue),
+                            .background(Color(0xFF263244)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Top
                     ) {

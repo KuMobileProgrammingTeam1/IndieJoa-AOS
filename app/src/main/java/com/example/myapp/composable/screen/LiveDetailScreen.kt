@@ -1,6 +1,9 @@
 package com.example.myapp.composable.screen
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -80,7 +83,9 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFEB3B),
-                        contentColor = Color.Black
+                        contentColor = Color.Black,
+                        disabledContainerColor = Color.Gray,
+                        disabledContentColor = Color.Black
                     ),
                     elevation = ButtonDefaults.buttonElevation(
                         defaultElevation = 8.dp,
@@ -119,7 +124,9 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Red,
-                        contentColor = Color.White
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.Gray,
+                        disabledContentColor = Color.Black
                     ),
                     elevation = ButtonDefaults.buttonElevation(
                         defaultElevation = 8.dp,
@@ -149,12 +156,55 @@ fun LiveDetailScreen(myViewModel: MyViewModel, addressViewModel: AddressViewMode
                 }
             }
         }
-        item {
-            Text(
-                text = liveData.description,
-                fontSize = 23.sp,
-                modifier = Modifier.padding(bottom = 25.dp)
-            )
+        if(liveData.description == " ") {
+            item {
+                Text(
+                    color = Color.White,
+                    text = "상세정보가 없습니다.",
+                    fontSize = 23.sp,
+                    modifier = Modifier.padding(bottom = 25.dp)
+                )
+            }
         }
+        else {
+            item {
+                Text(
+                    color = Color.White,
+                    text = liveData.description,
+                    fontSize = 23.sp,
+                    modifier = Modifier.padding(bottom = 25.dp)
+                )
+            }
+        }
+        item {
+            LinkButton(link = liveData.purchaseTicketLink, buttonText = "티켓 예매처")
+        }
+    }
+}
+
+@Composable
+fun LinkButton(link: String, buttonText: String) {
+    val context = LocalContext.current
+    val isEnabled = link.isNotEmpty()
+
+    Button(
+        colors = ButtonDefaults.buttonColors(
+            disabledContainerColor = Color.Gray,
+            disabledContentColor = Color.Black
+        ),
+        onClick = {
+            val uri = Uri.parse(link)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            try {
+                context.startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(context, "No application can handle this request. Please install a web browser.", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(context, "An unexpected error occurred: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            }
+        },
+        enabled = isEnabled
+    ) {
+        Text(text = buttonText)
     }
 }

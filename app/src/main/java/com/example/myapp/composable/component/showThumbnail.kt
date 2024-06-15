@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -26,7 +27,7 @@ fun ShowThumbnail(videoIds: List<String>, modifier: Modifier) {
     ) {
         item { 
             if(videoIds.isEmpty()){
-                Text(text = "목록이 비어있습니다.", fontSize = 35.sp)
+                Text(color = Color.White, text = "목록이 비어있습니다.", fontSize = 35.sp)
             }
         }
         items(videoIds) { videoId ->

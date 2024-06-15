@@ -27,6 +27,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +44,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapp.composable.component.HomeItem
 import com.example.myapp.data.MyViewModel
+import com.example.myapp.ui.theme.bottomBarButtonContainerColor
+import com.example.myapp.ui.theme.bottomBarContainerColor
 import org.jetbrains.annotations.Nullable
 
 
@@ -77,7 +80,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Now Loading...", fontSize = 25.sp)
+            Text("Now Loading...", fontSize = 25.sp, color = Color.White)
         }
         return
     }
@@ -88,8 +91,14 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Row {
+        Row ( ) {
             OutlinedTextField(
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = Color.White,
+                    unfocusedBorderColor = Color.White,
+                    unfocusedLabelColor = Color.White,
+                    focusedTextColor = Color.White
+                ),
                 value = artistNameText.value,
                 onValueChange = { artistNameText.value = it },
                 label = {
@@ -182,6 +191,7 @@ fun HomeScreen(myViewModel: MyViewModel, navController: NavController) {
 fun PageArrowButton(icon: ImageVector, onClick: () -> Unit) {
     IconButton(onClick = onClick, modifier = Modifier) {
         Icon(
+            tint = Color.White,
             imageVector = icon,
             contentDescription = null
         )
@@ -200,6 +210,12 @@ fun PageTextField(
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedTextField(
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedTextColor = Color.White,
+                unfocusedBorderColor = Color.White,
+                unfocusedLabelColor = Color.White,
+                focusedTextColor = Color.White
+            ),
             value = number,
             onValueChange = {
                 onValueChange(it)

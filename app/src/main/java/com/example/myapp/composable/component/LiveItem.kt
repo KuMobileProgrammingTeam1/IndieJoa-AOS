@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,18 +47,21 @@ fun LiveItem(liveData: LiveData, myViewModel: MyViewModel, navController: NavCon
 
         Column {
             Text(
+                color = Color.White,
                 text = liveData.title,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 20.dp)
             )
             Text(
+                color = Color.White,
                 text = "날짜: " + parsingDate(liveData.startDate),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Light,
                 modifier = Modifier.padding(start = 15.dp)
             )
             Text(
+                color = Color.White,
                 text = "가격: " + parsingPrice(liveData.priceInfo),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Light,
