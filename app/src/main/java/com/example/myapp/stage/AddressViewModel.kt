@@ -40,10 +40,12 @@ class AddressViewModel : ViewModel() {
                 isStageDataLoaded.value = true
             } catch (e: HttpException) {
                 _errorMessage.value = "공연장 정보가 없습니다."
-                Log.e("AddressViewModel", "Failed to get addresses", e)
+                _isPlaceLinkAvailable.value = false
+                _isYoutubeLinkAvailable.value = false
+                Log.e("AddressViewModel", "Failed to get addresses: HttpException", e)
             } catch (e: Exception) {
                 _errorMessage.value = "Error: ${e.message}"
-                Log.e("AddressViewModel", "Failed to get addresses", e)
+                Log.e("AddressViewModel", "Failed to get addresses: Exception", e)
             }
         }
     }
